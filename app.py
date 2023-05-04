@@ -44,7 +44,7 @@ st.set_page_config(page_title="Book Recommendation Generator", layout="wide")
 
 st.title("Book Recommendation Generator")
 
-data_and_problem_overview, model_training, model_testing, google_cloud, team = st.tabs(["Data and Problem Overview", "Modeling", "Interaction", "Google Cloud", "Team"])
+data_and_problem_overview, model_training, model_testing, google_cloud = st.tabs(["Data and Problem Overview", "Modeling", "Interaction", "Google Cloud"])
 
 with data_and_problem_overview: 
     
@@ -536,63 +536,63 @@ with google_cloud:
 
 
 #############################################################################################################################################
-with team:
+# with team:
 
-    members = [
-        {"name": "Meiling Ge", "description": "Meiling is a MANA candidate at Tulane University."},
-        {"name": "Sara Johansen", "description": "Sara is a MANA candidate at Tulane University."},
-        {"name": "May Paddor", "description": "May is a MANA candidate at Tulane University."},
-        {"name": "Matthew Stuckey", "description": "Matthew is a MANA candidate at Tulane University."},
-        {"name": "Xinyun Yang", "description": "Xinyun is a MANA candidate at Tulane University."}
-    ]
+#     members = [
+#         {"name": "Meiling Ge", "description": "Meiling is a MANA candidate at Tulane University."},
+#         {"name": "Sara Johansen", "description": "Sara is a MANA candidate at Tulane University."},
+#         {"name": "May Paddor", "description": "May is a MANA candidate at Tulane University."},
+#         {"name": "Matthew Stuckey", "description": "Matthew is a MANA candidate at Tulane University."},
+#         {"name": "Xinyun Yang", "description": "Xinyun is a MANA candidate at Tulane University."}
+#     ]
 
-    # Create a dictionary to hold the image data
-    image_data_dict = {}
+#     # Create a dictionary to hold the image data
+#     image_data_dict = {}
 
-    # Loop through the image names and download the data for each image
-    for i in range(1, 6):
-        # Get the name of the current image
-        image_name = f"member{i}.png"
+#     # Loop through the image names and download the data for each image
+#     for i in range(1, 6):
+#         # Get the name of the current image
+#         image_name = f"member{i}.png"
 
-        # Get the blob corresponding to the image
-        blob = storage_client.bucket("bk-rec-data").blob(image_name)
+#         # Get the blob corresponding to the image
+#         blob = storage_client.bucket("bk-rec-data").blob(image_name)
 
-        # Download the image data as bytes
-        image_bytes = io.BytesIO()
-        blob.download_to_file(image_bytes)
+#         # Download the image data as bytes
+#         image_bytes = io.BytesIO()
+#         blob.download_to_file(image_bytes)
 
-        # Make sure that the stream is at the beginning
-        image_bytes.seek(0)
+#         # Make sure that the stream is at the beginning
+#         image_bytes.seek(0)
 
-        # Verify that the downloaded data is not empty
-        if image_bytes.getbuffer().nbytes == 0:
-            st.warning(f"Downloaded image '{image_name}' is empty.")
-        else:
-            # Add the image data to the dictionary
-            image_data_dict[f"member{i}"] = image_bytes
+#         # Verify that the downloaded data is not empty
+#         if image_bytes.getbuffer().nbytes == 0:
+#             st.warning(f"Downloaded image '{image_name}' is empty.")
+#         else:
+#             # Add the image data to the dictionary
+#             image_data_dict[f"member{i}"] = image_bytes
 
-    st.subheader("About")
-    st.write("BookWorms consulting is a new media consulting group located in New Orleans, LA.\
-              Our goal is to help firms provide personalized recommendations for their consumers\
-            using AI and machine learning techniqes. Read Below to learn more about our team!")
+#     st.subheader("About")
+#     st.write("BookWorms consulting is a new media consulting group located in New Orleans, LA.\
+#               Our goal is to help firms provide personalized recommendations for their consumers\
+#             using AI and machine learning techniqes. Read Below to learn more about our team!")
         
-    st.subheader("Team")
+#     st.subheader("Team")
 
-    # Display the images and information for each team member
-    for member in members:
-        col = st.columns(2)[0]
+#     # Display the images and information for each team member
+#     for member in members:
+#         col = st.columns(2)[0]
 
-        # Get the image data for this team member
-        image_name = f"{member['name'].lower().replace(' ', '')}.png"
-        if image_name not in image_data_dict:
-            col.warning(f"No data available for {member['name']}.")
-        else:
-            image_data = image_data_dict[image_name]
-            image = Image.open(image_data)
+#         # Get the image data for this team member
+#         image_name = f"{member['name'].lower().replace(' ', '')}.png"
+#         if image_name not in image_data_dict:
+#             col.warning(f"No data available for {member['name']}.")
+#         else:
+#             image_data = image_data_dict[image_name]
+#             image = Image.open(image_data)
 
-            # Display the image and information for this team member
-            col.image(image)
-            col.subheader(member['name'])
-            col.write(member['description'])
+#             # Display the image and information for this team member
+#             col.image(image)
+#             col.subheader(member['name'])
+#             col.write(member['description'])
 
 
